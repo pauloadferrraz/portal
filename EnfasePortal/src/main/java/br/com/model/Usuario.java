@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity(name = "usuarios")
@@ -22,7 +23,17 @@ public class Usuario implements Serializable {
 	private int id;
 	private String nome;
 	private String login;
-	private String senha;
+	private String senha;	
+	@ManyToOne
+	private Permissao permissao;
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
 	public String getLogin() {
 		return login;
@@ -40,12 +51,12 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public String getNome() {
-		return nome;
+	public Permissao getPermissao() {
+		return permissao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
 	}
 
 	@Override
@@ -55,6 +66,8 @@ public class Usuario implements Serializable {
 		result = prime * result + id;
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result
+				+ ((permissao == null) ? 0 : permissao.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
@@ -80,6 +93,11 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
+		if (permissao == null) {
+			if (other.permissao != null)
+				return false;
+		} else if (!permissao.equals(other.permissao))
+			return false;
 		if (senha == null) {
 			if (other.senha != null)
 				return false;
@@ -88,4 +106,5 @@ public class Usuario implements Serializable {
 		return true;
 	}
 
+	
 }

@@ -6,18 +6,15 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title><ui:insert name="titulo">Sistema Financeiro</ui:insert></title>
-	<h:outputStylesheet library="algaworks" name="estilo.css" />
+	<title><ui:insert name="titulo">Enfase Portal</ui:insert></title>
+	<h:outputStylesheet library="arquivos" name="estilo.css" />
 </h:head>
 
 <h:body>
-	<f:metadata>
-		<f:viewAction action="#{consultaLancamentosBean.consultar}" />
-	</f:metadata>
 
 	<p:ajaxStatus styleClass="ajax-status">
 		<f:facet name="start">
-			<h:graphicImage library="algaworks" name="loading.gif" />
+			<h:graphicImage library="arquivos" name="loading.gif" />
 		</f:facet>
 		<f:facet name="complete">
 			<h:outputText value="" />
@@ -25,7 +22,7 @@
 	</p:ajaxStatus>
 
 	<header>
-		<h:graphicImage library="algaworks" name="logo.png" />
+		<h:graphicImage library="arquivos" name="logo.png" />
 		
 		<div style="float: right; margin-right: 20px; margin-top: 8px">
 			Olá #{usuario.nome}!
@@ -34,13 +31,13 @@
 	
 	<h:form>
 		<p:menubar style="margin-top: -20px; margin-bottom: 20px">
-			<p:submenu label="Cadastros">
-				<p:menuitem value="Pessoa" />
-				<p:menuitem value="Lançamento" action="/CadastroLancamento?faces-redirect=true" />
+			<p:submenu label="Administração">
+				<p:menuitem value="Usuarios" />
+				<p:menuitem value="Permissão" action="/CadastroLancamento?faces-redirect=true" />
 			</p:submenu>
 			<p:submenu label="Consultas">
-				<p:menuitem value="Pessoas" />
-				<p:menuitem value="Lançamentos" action="/ConsultaLancamentos?faces-redirect=true" />
+				<p:menuitem value="Dispositivos" />
+				<p:menuitem value="Acionamentos" action="/ConsultaLancamentos?faces-redirect=true" />
 			</p:submenu>
 			<p:submenu label="Sistema">
 				<p:menuitem value="Sair" action="#{loginBean.logout}" />
@@ -53,7 +50,9 @@
 	</div>
 	
 	<footer>
-		Sistema Financeiro - AlgaWorks
+	<hr />
+	<center>Enfase Portal - Automação Residencial</center>
+		
 	</footer>
 </h:body>
 

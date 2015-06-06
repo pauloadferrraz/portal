@@ -20,9 +20,11 @@ public class RecebeDados extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private DispositivoDao dao;
-	private Dispositivo dispositivo;
-	private Dispositivo dispositivo2;
+	private Dispositivo dispositivo_mov;
+	private Dispositivo dispositivo_gas;
 	private SimpleEntityManager simpleEntityManager;
+
+	static int teste = 250;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,33 +41,52 @@ public class RecebeDados extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int mov, mq2;
-		/*
+		int mov;
+		Long mq2;
+
 		this.simpleEntityManager = new SimpleEntityManager("enfase");
-		this.dispositivo = new Dispositivo();
-		this.dispositivo2 = new Dispositivo();
+		this.dispositivo_mov = new Dispositivo();
+		this.dispositivo_gas = new Dispositivo();
 		dao = new DispositivoDao(simpleEntityManager.getEntityManager());
-		*/
-		
+
 		mov = Integer.parseInt(request.getParameter("dado1"));
-		mq2 = Integer.parseInt(request.getParameter("dado2"));
-		
-		/*
-		dispositivo.setNome("Sensor Movimento");
-		dispositivo.setValor(mov);
-		
-		dispositivo2.setNome("Sensor Gas");
-		dispositivo2.setValor(mq2);
-		try {
-			simpleEntityManager.beginTransaction();
-			dao.save(this.dispositivo);
-			dao.save(this.dispositivo2);
-			simpleEntityManager.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			simpleEntityManager.rollBack();
+		mq2 = Long.parseLong(request.getParameter("dado2"));
+
+		dispositivo_mov.setNome("Sensor Movimento acionado");
+		dispositivo_mov.setValor(mov);
+
+		dispositivo_gas.setNome("Sensor Gas");
+		dispositivo_gas.setValor(mq2);
+
+		if (mov == 1) {
+			try {
+				simpleEntityManager.beginTransaction();
+				dao.save(this.dispositivo_mov);
+				simpleEntityManager.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				simpleEntityManager.rollBack();
+			}
+
+		} else if (mq2 >= teste) {
+			try {
+				simpleEntityManager.beginTransaction();
+				dao.save(this.dispositivo_gas);
+				simpleEntityManager.commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				simpleEntityManager.rollBack();
+			}
+
 		}
-		*/
+
+		/*
+		 * 
+		 * try { simpleEntityManager.beginTransaction();
+		 * dao.save(this.dispositivo_mov); dao.save(this.dispositivo_gas);
+		 * simpleEntityManager.commit(); } catch (Exception e) {
+		 * e.printStackTrace(); simpleEntityManager.rollBack(); }
+		 */
 		System.out.println(mov);
 		System.out.println(mq2);
 
