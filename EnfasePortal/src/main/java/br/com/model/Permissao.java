@@ -1,5 +1,6 @@
 package br.com.model;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,8 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 
-@Entity
-public class Permissao {
+@Entity(name="permissao")
+public class Permissao implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 660783179887908118L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "perm_seq_gen")
@@ -52,9 +58,6 @@ public class Permissao {
 		} else if (!permissao.equals(other.permissao))
 			return false;
 		return true;
-	}
-	
-
-	
+	}		
 	
 }

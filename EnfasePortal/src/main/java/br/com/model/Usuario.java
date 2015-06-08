@@ -23,9 +23,11 @@ public class Usuario implements Serializable {
 	private int id;
 	private String nome;
 	private String login;
-	private String senha;	
+	private String senha;
 	@ManyToOne
 	private Permissao permissao;
+	
+	private boolean ativo;
 
 	public String getNome() {
 		return nome;
@@ -58,11 +60,20 @@ public class Usuario implements Serializable {
 	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
+		
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -81,6 +92,8 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
+		if (ativo != other.ativo)
+			return false;
 		if (id != other.id)
 			return false;
 		if (login == null) {
