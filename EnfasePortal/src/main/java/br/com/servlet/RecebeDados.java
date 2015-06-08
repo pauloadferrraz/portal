@@ -59,6 +59,7 @@ public class RecebeDados extends HttpServlet {
 		dispositivo_gas.setValor(mq2);
 
 		if (mov == 1) {
+			System.out.println(mov);
 			try {
 				simpleEntityManager.beginTransaction();
 				dao.save(this.dispositivo_mov);
@@ -68,7 +69,8 @@ public class RecebeDados extends HttpServlet {
 				simpleEntityManager.rollBack();
 			}
 
-		} else if (mq2 >= teste) {
+		} else if (mq2 >= 250) {
+			System.out.println(mq2);
 			try {
 				simpleEntityManager.beginTransaction();
 				dao.save(this.dispositivo_gas);
@@ -87,8 +89,8 @@ public class RecebeDados extends HttpServlet {
 		 * simpleEntityManager.commit(); } catch (Exception e) {
 		 * e.printStackTrace(); simpleEntityManager.rollBack(); }
 		 */
-		System.out.println(mov);
-		System.out.println(mq2);
+		//System.out.println(mov);
+		//System.out.println(mq2);
 
 	}
 
