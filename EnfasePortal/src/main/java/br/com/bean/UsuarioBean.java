@@ -3,10 +3,10 @@ package br.com.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
 import br.com.dao.PermissaoDao;
 import br.com.dao.SimpleEntityManager;
@@ -18,36 +18,46 @@ import br.com.model.Usuario;
 public class UsuarioBean {
 	
 	private String confirmarSenha;
-	private UsuarioDao dao;
-	private PermissaoDao daoPermi;
+	//private UsuarioDao dao;
+	//private PermissaoDao daoPermi;
 	private Permissao permissao;
 	private Usuario usuario;
 	private Usuario usuario_novo;
-	private SimpleEntityManager simpleEntityManager;
+	//private SimpleEntityManager simpleEntityManager;
+	private  List<Permissao> LstPermissao;
+
 
 	public UsuarioBean() {
-		this.simpleEntityManager = new SimpleEntityManager("enfase");
+		//this.simpleEntityManager = new SimpleEntityManager("enfase");
 		this.usuario = new Usuario();
-		dao = new UsuarioDao(simpleEntityManager.getEntityManager());
-		daoPermi = new PermissaoDao(simpleEntityManager.getEntityManager());
+		this.usuario_novo = new Usuario();
+		this.permissao = new Permissao();
+		//dao = new UsuarioDao(simpleEntityManager.getEntityManager());
+		
+		//daoPermi = new PermissaoDao(simpleEntityManager.getEntityManager());
+		LstPermissao = this.findP();
 	}
 
 	public void salvar() {
+		SimpleEntityManager simpleEntityManager = new SimpleEntityManager("enfase"); 
 		try {
+			
 			simpleEntityManager.beginTransaction();
-			dao.save(this.usuario);
+			this.usuario_novo.setPermissao(this.permissao);
+			UsuarioDao dao = new UsuarioDao(simpleEntityManager.getEntityManager());
+			dao.save(this.usuario_novo);
 			simpleEntityManager.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			simpleEntityManager.rollBack();
+			simpleEntityManager.rollBack(); 
 		}
 	}
 
 	public String login() {
 
-		if (usuario.getLogin().equalsIgnoreCase("admin")
-				&& usuario.getSenha().equalsIgnoreCase("admin")){
-			return "dispositivos?faces-redirect=true";
+		if ("admin".equals(this.usuario.getLogin())
+				&& "admin".equals(this.usuario.getSenha())){
+			return "/faces/dispositivos?faces-redirect=true";
 		}
 		else{
 			FacesContext.getCurrentInstance().addMessage(
@@ -62,12 +72,13 @@ public class UsuarioBean {
 		
 		if(usuario_novo.getSenha().equals(confirmarSenha)){
 			try {
-				simpleEntityManager.beginTransaction();
-				dao.save(this.usuario_novo);
-				simpleEntityManager.commit();
+				//simpleEntityManager.beginTransaction();
+				this.usuario_novo.setPermissao(this.permissao);
+				//dao.save(this.usuario_novo);
+				//simpleEntityManager.commit();
 			} catch (Exception e) {
 				e.printStackTrace();
-				simpleEntityManager.rollBack();
+				//simpleEntityManager.rollBack();
 			}
 			
 			usuario_novo = null;
@@ -90,16 +101,23 @@ public class UsuarioBean {
 		   }
 		   return items;
 		   */
-		List<Permissao> perList = daoPermi.findAll();
-		for(Permissao per: perList){
-		       System.out.println(per.getPermissao());
-		   }
+		SimpleEntityManager simpleEntityManager = new SimpleEntityManager("enfase");
+		//simpleEntityManager.beginTransaction();
+		
+		PermissaoDao dao = new PermissaoDao(simpleEntityManager.getEntityManager());
+ 
+		List<Permissao> perList = dao.findAll();
+
+		simpleEntityManager.close();
+		//for(Permissao per: perList){
+		//       System.out.println(per.getPermissao());
+		 //  }
 		   return perList;
 	}
 	
-	public List<Usuario> findAll(){
-		return dao.findAll();
-	}
+	//public List<Usuario> findAll(){
+	//	return dao.findAll();
+	//}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -107,6 +125,10 @@ public class UsuarioBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public void setUsuario_novo(Usuario usuario_novo) {
+		this.usuario_novo = usuario_novo;
 	}
 
 	public String getConfirmarSenha() {
@@ -127,6 +149,14 @@ public class UsuarioBean {
 
 	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
+	}
+
+	public List<Permissao> getLstPermissao() {
+		return LstPermissao;
+	}
+
+	public void setLstPermissao(List<Permissao> lstPermissao) {
+		LstPermissao = lstPermissao;
 	}
 
 	

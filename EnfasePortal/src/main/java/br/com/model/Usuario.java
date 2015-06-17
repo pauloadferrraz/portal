@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity(name = "usuarios")
@@ -24,7 +24,7 @@ public class Usuario implements Serializable {
 	private String nome;
 	private String login;
 	private String senha;
-	@ManyToOne
+	@OneToOne
 	private Permissao permissao;
 	
 	private boolean ativo;

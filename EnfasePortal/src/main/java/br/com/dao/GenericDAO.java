@@ -3,7 +3,9 @@ package br.com.dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
  
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
  
 @SuppressWarnings("unchecked")
 public class GenericDAO<PK, T> {
@@ -27,6 +29,16 @@ public class GenericDAO<PK, T> {
  
     public void delete(T entity) {
         entityManager.remove(entity);
+    }
+    
+    //Somente para Login
+    public boolean query(String query){
+    	Query res = entityManager.createQuery(query);
+    	if(!res.getResultList().isEmpty()){
+    		return true;
+    	}else{
+    		return false;
+    	}
     }
  
     public List<T> findAll() {

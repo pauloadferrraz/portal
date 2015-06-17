@@ -10,17 +10,7 @@
 	<ui:define name="titulo">Dispositivos</ui:define>
 	<ui:define name="corpo">
 		<h:form>
-			
-			<!-- 
-			<p:panelGrid columns="2">
-				<h:outputLabel value="Nome: " />
-				<h:inputText value="#{DispositivoBean.dispositivo_novo.nome}" />
-				<h:outputLabel value="Valor " />
-				<h:inputText value="#{DispositivoBean.dispositivo_novo.valor}" />
-				<h:outputLabel />
-				<h:commandButton value="Adicionar" action="#{DispositivoBean.add()}" />
-			</p:panelGrid>
-			 -->
+
 
 			<p:dataTable value="#{DispositivoBean.findAll()}" var="dispositivo"
 				border="1" cellspacing="0" cellpadding="2" paginator="true" rows="15"

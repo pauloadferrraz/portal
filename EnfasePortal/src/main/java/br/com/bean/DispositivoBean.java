@@ -22,7 +22,9 @@ public class DispositivoBean {
 		this.dispositivo = new Dispositivo();
 		dao = new DispositivoDao(simpleEntityManager.getEntityManager());
 	}
-
+	
+	
+	/*
 	public void salvar() {
 		try {
 			simpleEntityManager.beginTransaction();
@@ -33,6 +35,7 @@ public class DispositivoBean {
 			simpleEntityManager.rollBack();
 		}
 	}
+	
 	
 	public void add() {
 		try {
@@ -46,7 +49,7 @@ public class DispositivoBean {
 		
 		dispositivo_novo = null;
 	}
-	
+	*/
 	
 	public List<Dispositivo> findAll(){
 		return dao.findAll();
