@@ -24,33 +24,6 @@ public class DispositivoBean {
 	}
 	
 	
-	/*
-	public void salvar() {
-		try {
-			simpleEntityManager.beginTransaction();
-			dao.save(this.dispositivo);
-			simpleEntityManager.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			simpleEntityManager.rollBack();
-		}
-	}
-	
-	
-	public void add() {
-		try {
-			simpleEntityManager.beginTransaction();
-			dao.save(this.dispositivo_novo);
-			simpleEntityManager.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			simpleEntityManager.rollBack();
-		}
-		
-		dispositivo_novo = null;
-	}
-	*/
-	
 	public List<Dispositivo> findAll(){
 		return dao.findAll();
 	}

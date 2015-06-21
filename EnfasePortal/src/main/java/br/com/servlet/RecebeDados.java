@@ -24,7 +24,7 @@ public class RecebeDados extends HttpServlet {
 	private Dispositivo dispositivo_gas;
 	private SimpleEntityManager simpleEntityManager;
 
-	static int teste = 250;
+	static int teste = 280;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

@@ -1,12 +1,15 @@
 package br.com.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity(name="dispositivos")
@@ -25,6 +28,8 @@ public class Dispositivo implements Serializable{
 	private String nome;
 	private double valor;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date reg;
 	
 	public String getNome() {
 		return nome;
@@ -38,12 +43,14 @@ public class Dispositivo implements Serializable{
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((reg == null) ? 0 : reg.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(valor);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -65,10 +72,21 @@ public class Dispositivo implements Serializable{
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
+		if (reg == null) {
+			if (other.reg != null)
+				return false;
+		} else if (!reg.equals(other.reg))
+			return false;
 		if (Double.doubleToLongBits(valor) != Double
 				.doubleToLongBits(other.valor))
 			return false;
 		return true;
+	}
+	public Date getReg() {
+		return reg;
+	}
+	public void setReg(Date reg) {
+		this.reg = reg;
 	}
 	
 		

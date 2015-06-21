@@ -4,8 +4,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
  
 
+
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import br.com.model.Permissao;
+import br.com.model.Usuario;
  
 @SuppressWarnings("unchecked")
 public class GenericDAO<PK, T> {
@@ -32,15 +37,26 @@ public class GenericDAO<PK, T> {
     }
     
     //Somente para Login
-    public boolean query(String query){
+    public Usuario query(String query){
     	Query res = entityManager.createQuery(query);
     	if(!res.getResultList().isEmpty()){
-    		return true;
+    		return (Usuario) res.getSingleResult();
     	}else{
-    		return false;
+    		return null;
     	}
     }
- 
+    
+    public Permissao queryPer(String query){
+    	Query res = entityManager.createQuery(query);
+    	if(!res.getResultList().isEmpty()){
+    		return (Permissao) res.getSingleResult();
+    	}else{
+    		return null;
+    	}
+    }
+    
+
+    
     public List<T> findAll() {
         return entityManager.createQuery(("FROM " + getTypeClass().getName()))
                 .getResultList();
